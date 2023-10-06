@@ -3,6 +3,8 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 
 import 'auth/SplashScreen.dart';
 
+// MainMethod
+
 Future<void> main() async {
   runApp(const MyApp());
 }
