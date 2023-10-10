@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-
+import 'ChatScreen.dart';
 import 'auth/SplashScreen.dart';
 
 // MainMethod
@@ -17,3 +16,5 @@ class MyApp extends StatelessWidget {
     return MaterialApp(debugShowCheckedModeBanner: false, home: SplashScreen());
   }
 }
+
+
