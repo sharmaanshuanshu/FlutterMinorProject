@@ -64,7 +64,45 @@ class _GridItemsState extends State<Griditems> {
                                 ),
                                 title: Text('${_title[index]}'),
                                 subtitle: Text('${_subTitle[index]}'),
-                                trailing: FaIcon(FontAwesomeIcons.person),
+                                trailing: IconButton(
+                                  icon: Icon(Icons.delete,color: Colors.red),
+                                  onPressed: (){
+                                   showDialog(
+                                       context: context,
+                                       builder: (BuildContext context){
+                                         return AlertDialog(
+                                            title: Text('Are you sure to delete this user',style: TextStyle(fontSize: 16)),
+                                           actions: [
+                                             Row(
+                                               mainAxisAlignment: MainAxisAlignment
+                                                   .spaceBetween,
+                                               children: [
+                                                 TextButton(
+                                                     child: Text('Yes'),
+                                                     onPressed: (){
+                                                       _title.removeAt(index);
+                                                       _subTitle.removeAt(index);
+                                                       _images.removeAt(index);
+                                                       Navigator.pop(context);
+                                                       setState(() {
+                                                         _title;
+                                                       });
+                                                     },
+                                                 ),
+                                                 TextButton(
+                                                     child: Text('No'),
+                                                     onPressed: (){
+                                                       Navigator.pop(context);
+                                                     },
+                                                 )
+                                               ],
+                                             )
+                                           ],
+
+                                         );
+                                       });
+                                  },
+                                )
                               ),
                             ),
                           );
@@ -78,7 +116,7 @@ class _GridItemsState extends State<Griditems> {
 
   Future refresh() async {
     setState(() {
-      _compDataLength;
+      _title;
     });
   }
 

@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:proofhubmobileapplication/ChatScreen.dart';
 import 'package:proofhubmobileapplication/projects/CalendarItems.dart';
 import 'package:proofhubmobileapplication/projects/MultipleImagesUpload.dart';
-import 'package:proofhubmobileapplication/projects/UploadGifFile.dart';
+import 'package:proofhubmobileapplication/projects/DropDownTree.dart';
 import 'package:proofhubmobileapplication/projects/ListViewLoading.dart';
 import 'package:http/http.dart' as http;
 import '../tasks/TaskGrid.dart';
@@ -21,6 +22,7 @@ class _ProjectSectionState extends State<ProjectSection> {
   List<dynamic> images = [];
   late int compDatalength;
   bool isLoading =false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,43 +76,45 @@ class _ProjectSectionState extends State<ProjectSection> {
                         )));
           },
         ),
+      // ElevatedButton(
+      //      child: Text('List View Loading'.toUpperCase()),
+      //   onPressed: () {
+      //        Navigator.push(context, MaterialPageRoute(builder: (context)=> MyHomePage()));
+      //   },
+      //  ),
+
       ElevatedButton(
-           child: Text('List View Loading'.toUpperCase()),
+        child: Text('List View Loading'.toUpperCase()),
         onPressed: () {
-             Navigator.push(context, MaterialPageRoute(builder: (context)=> MyHomePage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen()));
         },
-       ),
+      ),
+
       InkWell(
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => MultiImagesUpload()));
           },
           child: Container(child: Text('Files'.toUpperCase()))),
-      InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => UploadGifFile()));
-          },
-          child: ElevatedButton(
-              child: Text('GIF'.toUpperCase(), style: TextStyle(fontSize: 20)),
+      ElevatedButton(
+              child: Text('DropDown Tree'.toUpperCase(), style: TextStyle(fontSize: 20)),
             onPressed: (){
-                final response = http.get(Uri.parse('https://within.proofhub.com/link/gifs?q=All'),
-                headers: {
-                      'X-API-KEY': '7bf004c161c903c98082a5b270d48e924912a99a' });
-               print(response);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> DropDownTree()));
             },
-          )
-      ),
+          ),
+
     ];
     return Scaffold(
       body: Center(
         child: Stack(
           children: [
             Container(
-              height: 400,
+              height: 600,
               width: 300,
               color: Colors.white70,
               child: ListView.separated(
+                primary: true,
+                shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: CircleAvatar(
@@ -120,7 +124,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                   );
                 },
                 separatorBuilder: (context, index) {
-                  return Divider(height: 20, thickness: 2);
+                  return Divider(height: 20, thickness: 5);
                 },
                 itemCount: projectTitle.length,
               ),

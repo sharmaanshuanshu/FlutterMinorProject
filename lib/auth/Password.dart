@@ -92,7 +92,6 @@ class _HomeScreenState extends State<Password> {
                 //     passBtnErr = false;
                 //   });
                 // }
-
                 var userEmail = _email;
                 var userPass = userEmail + ':' + pass;
                 var auth = base64.encode(utf8.encode(userPass));

@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:proofhubmobileapplication/widgets/SnackBar.dart';
 import 'LaunchUrlApp.dart';
 import 'Password.dart';
@@ -114,7 +114,8 @@ class _EmailState extends State<Email> {
                     });
                     navigateToPasswordScreen(context);
                   });
-              } else {
+              }
+              else {
                 if (exist == false && email.length > 0) {
                   setState(() {
                     isLoading =true;

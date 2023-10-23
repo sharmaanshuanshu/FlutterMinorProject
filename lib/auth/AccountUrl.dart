@@ -5,7 +5,7 @@ import 'package:proofhubmobileapplication/widgets/SnackBar.dart';
 import 'Email.dart';
 import 'LaunchUrlApp.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
+// import 'package:http/http.dart';
 
 class HomeScreen extends StatefulWidget {
   final textKey = GlobalKey<_HomeScreenState>;
@@ -127,8 +127,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {
                     isLoading = false;
                   }); navigateToEmailScreen(context);
-    })
-                 ;
+    });
+
               }
               else {
                 setState(() {

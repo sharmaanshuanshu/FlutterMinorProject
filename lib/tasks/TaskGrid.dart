@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:proofhubmobileapplication/LocalNotifications.dart';
+import 'package:proofhubmobileapplication/channel/AddChannel.dart';
+import 'package:proofhubmobileapplication/channel/FlutterChannel.dart';
 import 'package:proofhubmobileapplication/tasks/TaskAddEditForm.dart';
 import 'package:proofhubmobileapplication/widgets/ThemeChange.dart';
 
@@ -20,7 +23,13 @@ class TasksFormField extends StatefulWidget {
 }
 
 class _TasksFormFieldState extends State<TasksFormField> {
+
   final _taskFormKey = GlobalKey<FormState>();
+  @override
+  void initState(){
+    super.initState();
+    LocalFlutterNotification().intilizeNotification();
+  }
 
   List<dynamic> titleList = [];
   List<dynamic> sub_title = [];
@@ -31,13 +40,13 @@ class _TasksFormFieldState extends State<TasksFormField> {
   final _subTitle = TextEditingController();
   final _startDate = TextEditingController();
   final _DueDate = TextEditingController();
-  bool _switchValue = true;
+  // bool _switchValue = true;
   
   @override
   Widget build(BuildContext context) {
-    print(titleList);
     return Scaffold(
-      backgroundColor: _switchValue ? Colors.white:Colors.black,
+      drawer: FlutterChannel(),
+      // backgroundColor: _switchValue ? Colors.white:Colors.black,
         appBar: AppBar(
           title: Text('Tasks'),
           actions: [
@@ -180,6 +189,17 @@ class _TasksFormFieldState extends State<TasksFormField> {
                                                       _taskFormKey.currentState?.reset();
                                                     }
                                                       )
+                                                ),
+                                                Padding(
+                                                    padding: const EdgeInsets.all(
+                                                        8.0),
+                                                    child: TextButton(
+                                                        child: Text('CANCEL'),
+                                                        onPressed: () {
+                                                          Navigator.pop(context);
+                                                          _taskFormKey.currentState?.reset();
+                                                        }
+                                                    )
                                                 )
                                               ]
                                             )
@@ -196,29 +216,66 @@ class _TasksFormFieldState extends State<TasksFormField> {
                     },
                     icon: Icon(Icons.add),
                     label: Text('Add'))),
-            Switch(value: _switchValue,
-                    inactiveTrackColor: Colors.white,
-                onChanged: (newValue){
-              setState(() {
-                _switchValue = newValue;
-              });
-            }),
+            // Switch(value: _switchValue,
+            //         inactiveTrackColor: Colors.white,
+            //     onChanged: (newValue){
+            //   setState(() {
+            //     _switchValue = newValue;
+            //   });
+            // }),
             Expanded(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
               itemCount: titleList.length,
                 itemBuilder: (context , index){
-              return Card(
-                child: ListTile(
-                  leading: CircleAvatar(backgroundColor: Colors.red),
-                  title: Text('${titleList[index]}'),
-                  subtitle: Text('${sub_title[index]}'),
+              return SafeArea(
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    setState(() {
+                      titleList;
+                    });
+                  },
+                  child: ListTile(
+                      leading: CircleAvatar(
+                        child: Text('${titleList[index].toString().split(" ")[0][0]}'),
+                      ),
+                      title: Text('${titleList[index]}'),
+                      subtitle: Text('${sub_title[index]}'),
+                      trailing: IconButton(
+                       icon: Icon(Icons.delete,color:Colors.red),
+
+                        onPressed: () {
+                          String notificationTitle = titleList[index];
+                       String notificationSubTitle = sub_title[index];
+
+                         setState(() {
+                           titleList.removeAt(index);
+                           titleList;
+                           LocalFlutterNotification().sendNotification('User', 'Delete');
+
+                         });
+
+                        },
+
+                      ),
+                    ),
                 ),
               );
             }),
           )
             ),
+            Padding(
+              padding: const EdgeInsets.all(50),
+              child: ElevatedButton(
+                  onPressed: (){
+                    // localFlutterNotification.scheduleNotification('AAA','BBB','CCCC');
+                    // notificationService.scheduleNotification( 'title', 'body');
+                    LocalFlutterNotification().zonedScheduleNotification();
+                    // LocalFlutterNotification().scheduleNotiWithCron();
+                  },
+                  child: Text('Show Notificaion')),
+            )
           ],
         ));
   }

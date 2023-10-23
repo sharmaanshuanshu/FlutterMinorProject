@@ -30,7 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^1.1.0
   url_launcher: ^6.1.14
   sliding_up_panel: ^2.0.0+1
   material_design_icons_flutter: 7.0.7296
@@ -72,6 +71,18 @@ dependencies:
   provider: ^6.0.5
   flutter_tree_pro: ^0.0.7
   flutter_tree: ^2.0.3
+  web_socket_channel: ^2.4.0
+  socket_io_client: ^2.0.0
+  http: ^1.1.0
+  flutter_local_notifications: ^16.1.0
+  timezone: ^0.9.2
+  flutter_datetime_picker: ^1.5.1
+  awesome_notifications: ^0.8.2
+  firebase_messaging: ^14.7.0
+  cron: ^0.5.1
+  firebase_database: ^10.3.1
+  firebase_core: ^2.19.0
+  cloud_firestore: ^4.11.0
 
 dev_dependencies:
   flutter_test:

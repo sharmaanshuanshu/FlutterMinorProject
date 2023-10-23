@@ -1,10 +1,6 @@
-import 'dart:ffi';
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:open_file/open_file.dart';
 import 'package:proofhubmobileapplication/widgets/FilesAppBar.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
@@ -127,7 +123,7 @@ class _MultiImagesUploadState extends State<MultiImagesUpload> {
                 onPressed: () {
                   getMultiSelectImages();
                 },
-                child: Text('Select Multiple Images')),
+                child: Text('SELECT')),
           )
         ],
       ),
